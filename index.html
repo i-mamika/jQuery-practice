@@ -40,33 +40,53 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-// ここに処理を記載します
-    const fortuneResults = {
-      money: [
-        {stars:"★★★", detail:"最高の金運です！いつの間にかお金が溜まっているかも・・・？"},
-        {stars:"★★", detail:"まずまず金運です！使いすぎには注意しましょう！"},
-        {stars:"★", detail:"悪い傾向が見られます！財布の紐は絞めておくと吉です！"}
-      ],
-      work: [
-        {stars:"★★★", detail:"最高の仕事運です！いつも以上にチャンスが巡ってくるかも・・・？"},
-        {stars:"★★", detail:"まずまず仕事運です！普段通り仕事が進むでしょう！"},
-        {stars:"★", detail:"悪い傾向が見られます！自信過剰にならないように注意しましょう"}
-      ],
-      health: [
-        {stars:"★★★", detail:"最高の健康運です！ランニングの距離を伸ばしても良いですね！"},
-        {stars:"★★", detail:"まずまず健康運です！無理せず体を動かしましょう！"},
-        {stars:"★", detail:"悪い傾向が見られます！ケガにご注意を・・・"}
-      ]
-    }
-    for(var i in fortuneResults){
-      console.log( fortuneResults[i] );
-    }
-    function fortuneResults(){
-      let js_fortune_num = Math.floor( Math.random() * 3 );
-      let js_fortune = '';
+		// ここに処理を記載します
+		const fortuneResults = {
+			money: [
+				{ stars: "★★★", detail: "最高の金運です！いつの間にかお金が溜まっているかも・・・？" },
+				{ stars: "★★", detail: "まずまず金運です！使いすぎには注意しましょう！" },
+				{ stars: "★", detail: "悪い傾向が見られます！財布の紐は絞めておくと吉です！" }
+			],
+			work: [
+				{ stars: "★★★", detail: "最高の仕事運です！いつも以上にチャンスが巡ってくるかも・・・？" },
+				{ stars: "★★", detail: "まずまず仕事運です！普段通り仕事が進むでしょう！" },
+				{ stars: "★", detail: "悪い傾向が見られます！自信過剰にならないように注意しましょう" }
+			],
+			health: [
+				{ stars: "★★★", detail: "最高の健康運です！ランニングの距離を伸ばしても良いですね！" },
+				{ stars: "★★", detail: "まずまず健康運です！無理せず体を動かしましょう！" },
+				{ stars: "★", detail: "悪い傾向が見られます！ケガにご注意を・・・" }
+			]
+		}
 
-			
-    } 
+		$('.js-fortune-start').on('click', function () {
+			$('.result').fadeIn(800);
+			for (var i in fortuneResults) {
+				// ランダムな数字を生成
+				const randam = Math.floor(Math.random() * 3);
+				const target = '.' + i;
+				$(`${target} > .stars`).text(fortuneResults[i][randam]['stars']);
+				$(`${target} > .detail`).text(fortuneResults[i][randam]['detail']);
+			}
+		});
+
+		// js-fortune-startがクリックされたら, function() {
+			$(document).on('click', '.js-fortune-start', function() {
+			// 表示を切り替えるなど
+			$(this).text('もう一度占う！');
+			// toggleClassを使って、新しいクラスjs-fortune-restartを追加、js-fortune-startを削除
+			$(this).toggleClass('js-fortune-restart js-fortune-start');
+		});
+
+		//js-fortune-restartがクリックされたら, function() {
+			$(document).on('click', '.js-fortune-restart', function() {
+			// 表示を切り替えるなど
+			$(this).text('運勢を占う！');
+			$(".result").fadeOut(800);
+			// toggleClassを使って、新しいクラスjs-fortune-restartを追加、js-fortune-startを削除
+			$(this).toggleClass('js-fortune-start js-fortune-restart');
+		});
+
 	</script>
 </body>
 
